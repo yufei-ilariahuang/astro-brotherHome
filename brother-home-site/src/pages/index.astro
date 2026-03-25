@@ -9,40 +9,232 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.center-intro {
+				max-width: 1080px;
+				margin: 0 auto 1rem;
+				text-align: center;
+				font-family: "Times New Roman", Times, serif;
+				background: transparent;
+				padding: 12px 16px;
+				border: 0;
+			}
+
+			.center-intro h1,
+			.center-intro p,
+			.center-intro strong,
+			.center-intro a {
+				font-family: "Times New Roman", Times, serif;
+			}
+
+			.center-intro h1 {
+				font-size: 34px;
+				margin-bottom: 10px;
+			}
+
+			.center-intro p {
+				font-size: 17px;
+				line-height: 1.5;
+			}
+
+			.center-intro .intro-main {
+				color: #607d3b;
+				font-style: italic;
+				font-weight: 700;
+			}
+
+			.center-intro .zh-crown {
+				color: #420d09;
+				font-size: 34px;
+				font-style: italic;
+				font-weight: 700;
+			}
+
+			.center-intro .intro-highlight {
+				color: #607d3b;
+				font-style: italic;
+				font-weight: 700;
+			}
+
+			.center-intro .intro-detail {
+				color: #420d09;
+				font-weight: 700;
+			}
+
+			.home-catalog {
+				background: #f2ede9;
+				border: 1px solid #aaaaaf;
+			}
+
+			.home-catalog .cat-title {
+				font-size: 18px;
+			}
+
+			.home-catalog .cat-desc {
+				font-size: 16px;
+				line-height: 1.45;
+			}
+
+			.home-catalog img {
+				width: 180px;
+				height: 180px;
+				object-fit: contain;
+				background: #ffffff;
+				border-radius: 12px;
+				padding: 6px;
+				box-sizing: border-box;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
+			<section class="center-intro">
+			<h1 data-lang="en" class="zh-crown">Brother Home</h1>
+			<h1 data-lang="zh" class="zh-crown">兄弟家居</h1>
+			<p data-lang="en"  class="zh-crown"><strong>Home renovation experts in flooring, cabinets, and custom storage.</strong></p>
+			<p data-lang="zh" class="zh-crown">专注地板、橱柜与定制收纳，是您值得信赖的家装伙伴。</p>
+			<p data-lang="en" class="intro-main">
+				Welcome to Brother Home online. We hope you find our site user-friendly and informational.
+				To obtain a quote or place an order, you may contact us by email or call us directly. You may also use any product image on this page to go straight to the product you need and review the price and details.
 			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
+			<p data-lang="en" class="intro-highlight">
+				If you are familiar with our products and options and want to submit a quick order or quote,
+				<a href="tel:7146179777">click here to give us a call</a>.
 			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
+			<p data-lang="en" class="intro-detail">
+				We are pleased to offer top-quality products including kitchen cabinets, hardwood and laminate flooring,
+				quartz countertops, sinks and basins, cabinet hardware and pulls, bathroom vanities,
+				shower doors and enclosures, and custom walk-in closets.
 			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
+			<p data-lang="zh" class="intro-main">
+				欢迎来到 Brother Home 网站。希望您在这里获得清晰、便捷的浏览体验。
+				如需报价或下单，您可以通过邮箱联系，或直接电话咨询。
+				您也可以点击本页任一产品图片，直接进入对应产品页面查看价格与详细信息。
 			</p>
+			<p data-lang="zh" class="intro-highlight">
+				如果您已了解我们的产品与选项，并希望快速提交报价或订单需求，
+				<a href="tel:7146179777">点击这里直接拨打电话</a>。
+			</p>
+			<p data-lang="zh" class="intro-detail">
+				我们提供高品质产品，包括厨房橱柜、实木与复合地板、石英石台面、水盆、把手与五金、
+				浴室柜、淋浴房门与隔断，以及定制衣帽间。
+			</p>
+			</section>
+
+			<table class="home-catalog" width="99%" border="0" cellspacing="0" cellpadding="9" align="center">
+				<tr>
+					<td width="100%">
+						<table width="100%" border="0" cellspacing="0" cellpadding="4">
+							<tr>
+								<td align="center" colspan="2">
+									<p><b data-lang="en">Please click on a product to view details.</b><b data-lang="zh">请点击产品查看详情。</b></p>
+								</td>
+							</tr>
+						</table>
+
+
+						<table width="100%" border="0" cellspacing="0" cellpadding="4">
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/kitchen-cabinets"><img src="/cabinet.webp" alt="Kitchen cabinets" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/kitchen-cabinets">Cabinets / Kitchen Cabinets</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/kitchen-cabinets">橱柜</a></b><br />
+										<span data-lang="en">Built-to-size kitchen cabinets with flexible styles and finishes for your renovation.</span><span data-lang="zh">定制厨房橱柜，风格与饰面选择灵活，轻松匹配您的装修需求。</span><br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/hardwood-laminate-flooring"><img src="/flooring.jpeg" alt="Flooring" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/hardwood-laminate-flooring">Flooring / Hardwood & Laminate Flooring</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/hardwood-laminate-flooring">地板</a></b><br />
+										<span data-lang="en">Choose from hardwood and laminate flooring that looks great and stands up to everyday use.</span><span data-lang="zh">提供多种实木与复合地板选择，兼顾美观与耐用，适合日常家庭使用。</span><br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/quartz-countertops"><img src="/quartz.webp" alt="Quartz countertops" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/quartz-countertops">Quartz Stone / Quartz Countertops</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/quartz-countertops">石英石</a></b><br />
+										<span data-lang="en">Premium quartz countertops with a clean modern look that are easy to maintain.</span><span data-lang="zh">高品质石英石台面，外观现代简洁，日常清洁与维护都很省心。</span><br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/sinks-basins"><img src="/basin.webp" alt="Sinks and basins" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/sinks-basins">Water Basin / Sinks & Basins</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/sinks-basins">水盆</a></b><br />
+										<span data-lang="en">Modern sink and basin options designed to fit both kitchen and bathroom layouts.</span><span data-lang="zh">现代水盆款式可选，厨房与浴室空间都能轻松搭配。</span><br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/cabinet-hardware-pulls"><img src="/handles.jpeg" alt="Cabinet hardware pulls" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/cabinet-hardware-pulls">Handles / Cabinet Hardware & Pulls</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/cabinet-hardware-pulls">把手</a></b><br />
+										<span data-lang="en">Hardware and pull options that add a polished finishing touch to cabinets and vanities.</span><span data-lang="zh">把手与五金配件款式丰富，轻松提升橱柜和浴室柜的整体质感。</span><br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/bathroom-vanities"><img src="/bathroom%20cabinet.webp" alt="Bathroom vanities" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/bathroom-vanities">Bathroom Cabinet / Bathroom Vanities</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/bathroom-vanities">浴室柜</a></b><br />
+										<span data-lang="en">Bathroom vanities with practical storage and countertop combinations for easier daily use.</span><span data-lang="zh">浴室柜可搭配多种收纳与台面组合，让日常使用更方便整洁。</span><br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/shower-doors-enclosures"><img src="/bathroomdoor.webp" alt="Shower doors and enclosures" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/shower-doors-enclosures">Bathroom Door / Shower Doors & Enclosures</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/shower-doors-enclosures">浴室门</a></b><br />
+										<span data-lang="en">Framed and frameless shower door options with clean lines and durable hardware.</span><span data-lang="zh">提供有框与无框淋浴门选择，线条简洁，并搭配耐用五金配件。</span><br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="12%" align="right">
+									<a href="/products/custom-walk-in-closets"><img src="/closet.avif" alt="Custom walk-in closets" border="0" /></a>
+								</td>
+								<td width="88%">
+									<p class="cat-desc">
+										<b class="cat-title" data-lang="en"><a href="/products/custom-walk-in-closets">Custom Cloakroom / Custom Walk-in Closets</a></b>
+										<b class="cat-title" data-lang="zh"><a href="/products/custom-walk-in-closets">定制衣帽间</a></b><br />
+										<span data-lang="en">Custom walk-in closet solutions tailored to maximize every inch of your space.</span><span data-lang="zh">定制衣帽间收纳方案，按您的空间量身设计，充分利用每一寸面积。</span><br />
+									</p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 		</main>
 		<Footer />
 	</body>

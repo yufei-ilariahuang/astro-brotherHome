@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Image placeholder">
+  <rect width="960" height="540" fill="#f3f4f6" />
+  <rect x="40" y="40" width="880" height="460" fill="none" stroke="#9ca3af" stroke-width="4" stroke-dasharray="12 12" />
+  <text x="480" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" fill="#6b7280">Image Placeholder</text>
+  <text x="480" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#6b7280">图片占位符</text>
+</svg>

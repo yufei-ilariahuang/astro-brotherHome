@@ -1,0 +1,274 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+const productPages = {
+  'kitchen-cabinets': {
+    title: 'Kitchen Cabinets (橱柜)',
+    category: 'Kitchen & Flooring',
+    categoryZh: '厨房与地板',
+    products: ['KC-100', 'KC-200', 'KC-300'],
+  },
+  'hardwood-laminate-flooring': {
+    title: 'Hardwood & Laminate Flooring (地板)',
+    category: 'Kitchen & Flooring',
+    categoryZh: '厨房与地板',
+    products: ['FL-100', 'FL-200', 'FL-300'],
+  },
+  'quartz-countertops': {
+    title: 'Quartz Countertops (石英石)',
+    category: 'Kitchen & Flooring',
+    categoryZh: '厨房与地板',
+    products: ['QT-100', 'QT-200', 'QT-300'],
+  },
+  'bathroom-vanities': {
+    title: 'Bathroom Vanities (浴室柜)',
+    category: 'Bathroom & Hardware',
+    categoryZh: '浴室与五金',
+    products: ['BV-100', 'BV-200', 'BV-300'],
+  },
+  'shower-doors': {
+    title: 'Shower Doors (浴室门)',
+    category: 'Bathroom & Hardware',
+    categoryZh: '浴室与五金',
+    products: ['SD-100', 'SD-200', 'SD-300'],
+  },
+  'shower-doors-enclosures': {
+    title: 'Shower Doors & Enclosures (浴室门)',
+    category: 'Bathroom & Hardware',
+    categoryZh: '浴室与五金',
+    products: ['SE-100', 'SE-200', 'SE-300'],
+  },
+  'sinks-and-pulls': {
+    title: 'Sinks, Handles & Pulls (水盆与把手)',
+    category: 'Bathroom & Hardware',
+    categoryZh: '浴室与五金',
+    products: ['SP-100', 'SP-200', 'SP-300'],
+  },
+  'sinks-basins': {
+    title: 'Sinks & Basins (水盆)',
+    category: 'Bathroom & Hardware',
+    categoryZh: '浴室与五金',
+    products: ['SB-100', 'SB-200', 'SB-300'],
+  },
+  'cabinet-hardware-pulls': {
+    title: 'Cabinet Hardware & Pulls (把手)',
+    category: 'Bathroom & Hardware',
+    categoryZh: '浴室与五金',
+    products: ['HP-100', 'HP-200', 'HP-300'],
+  },
+  'custom-walk-in-closets': {
+    title: 'Custom Walk-in Closets (定制衣帽间)',
+    category: 'Custom Storage',
+    categoryZh: '定制收纳',
+    products: ['CW-100', 'CW-200', 'CW-300'],
+  },
+  'storage-cabinets': {
+    title: 'Storage Cabinets (收纳柜)',
+    category: 'Custom Storage',
+    categoryZh: '定制收纳',
+    products: ['SC-100', 'SC-200', 'SC-300'],
+  },
+  'pantry-storage': {
+    title: 'Pantry Storage Systems (餐厨收纳系统)',
+    category: 'Custom Storage',
+    categoryZh: '定制收纳',
+    products: ['PS-100', 'PS-200', 'PS-300'],
+  },
+} as const;
+
+type ProductSlug = keyof typeof productPages;
+
+export function getStaticPaths() {
+  const slugs = [
+    'kitchen-cabinets',
+    'hardwood-laminate-flooring',
+    'quartz-countertops',
+    'bathroom-vanities',
+    'shower-doors',
+    'shower-doors-enclosures',
+    'sinks-and-pulls',
+    'sinks-basins',
+    'cabinet-hardware-pulls',
+    'custom-walk-in-closets',
+    'storage-cabinets',
+    'pantry-storage',
+  ];
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const slug = Astro.params.slug as ProductSlug;
+const page = productPages[slug];
+const titleEn = page.title.replace(/\s*\(.*\)\s*$/, '');
+const titleZh = page.title.match(/\(([^)]+)\)/)?.[1] ?? page.title;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`${page.title} | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    <style>
+      .center-intro {
+        max-width: 1080px;
+        margin: 0 auto 1rem;
+        text-align: center;
+        font-family: "Times New Roman", Times, serif;
+        background: transparent;
+        padding: 12px 16px;
+        border: 0;
+      }
+
+      .center-intro h1,
+      .center-intro p,
+      .center-intro strong,
+      .center-intro a {
+        font-family: "Times New Roman", Times, serif;
+      }
+
+      .center-intro h1 {
+        font-size: 34px;
+        margin-bottom: 10px;
+      }
+
+      .center-intro p {
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .center-intro .intro-main {
+        color: #607d3b;
+        font-style: italic;
+        font-weight: 700;
+      }
+
+      .center-intro .zh-crown {
+        color: #420d09;
+        font-size: 34px;
+        font-style: italic;
+        font-weight: 700;
+      }
+
+      .center-intro .intro-highlight {
+        color: #607d3b;
+        font-style: italic;
+        font-weight: 700;
+      }
+
+      .center-intro .intro-detail {
+        color: #420d09;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="center-intro">
+        <h1 data-lang="en" class="zh-crown">Brother Home</h1>
+        <h1 data-lang="zh" class="zh-crown">兄弟家居</h1>
+        <p data-lang="en" class="zh-crown"><strong>Home renovation experts in flooring, cabinets, and custom storage.</strong></p>
+        <p data-lang="zh" class="zh-crown">专注地板、橱柜与定制收纳，是您值得信赖的家装伙伴。</p>
+        <p data-lang="en" class="intro-main">
+          Welcome to Brother Home online. We hope you find our site user-friendly and informational.
+          To obtain a quote or place an order, you may contact us by email or call us directly. You may also use any product image on this page to go straight to the product you need and review the price and details.
+        </p>
+        <p data-lang="en" class="intro-highlight">
+          If you are familiar with our products and options and want to submit a quick order or quote,
+          <a href="tel:7146179777">click here to give us a call</a>.
+        </p>
+        <p data-lang="en" class="intro-detail">
+          We are pleased to offer top-quality products including kitchen cabinets, hardwood and laminate flooring,
+          quartz countertops, sinks and basins, cabinet hardware and pulls, bathroom vanities,
+          shower doors and enclosures, and custom walk-in closets.
+        </p>
+        <p data-lang="zh" class="intro-main">
+          欢迎来到 Brother Home 网站。希望您在这里获得清晰、便捷的浏览体验。
+          如需报价或下单，您可以通过邮箱联系，或直接电话咨询。
+          您也可以点击本页任一产品图片，直接进入对应产品页面查看价格与详细信息。
+        </p>
+        <p data-lang="zh" class="intro-highlight">
+          如果您已了解我们的产品与选项，并希望快速提交报价或订单需求，
+          <a href="tel:7146179777">点击这里直接拨打电话</a>。
+        </p>
+        <p data-lang="zh" class="intro-detail">
+          我们提供高品质产品，包括厨房橱柜、实木与复合地板、石英石台面、水盆、把手与五金、
+          浴室柜、淋浴房门与隔断，以及定制衣帽间。
+        </p>
+      </section>
+
+
+      <table border="0" cellspacing="0" cellpadding="9" width="99%" align="center">
+        <tr>
+          <td colspan="3" width="100%">
+            <table width="100%" border="0" cellspacing="0" cellpadding="4">
+              <tr>
+                <td class="prodnavigation" colspan="2" align="left">
+                  <b>
+                    <p class="prodnavigation">
+                      <span data-lang="en"><a href="/">Home</a> » {page.category} » {titleEn}</span>
+                      <span data-lang="zh"><a href="/">首页</a> » {page.categoryZh} » {titleZh}</span>
+                    </p>
+                  </b>
+                </td>
+                <td align="right">
+                  <a href="mailto:BrotherHomeanaheim@outlook.com" data-lang="en">Contact</a>
+                  <a href="mailto:BrotherHomeanaheim@outlook.com" data-lang="zh">联系</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" align="center" class="pagenums">
+                  <p class="pagenums"><b>«</b> Previous | 1 | 2 | Next <b>»</b></p>
+                </td>
+              </tr>
+
+              {page.products.map((code) => (
+                <>
+                  <tr>
+                    <td width="26%" rowspan="3" align="center" valign="middle">
+                      <img src="/placeholder.svg" border="0" alt={code} width="120" height="90" />
+                    </td>
+                    <td width="59%">
+                      <p><b>{code}</b></p>
+                    </td>
+                    <td width="15%" align="right"><p><b>Details</b></p></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <p data-lang="en"><b>{titleEn}</b></p>
+                      <p data-lang="zh"><b>{titleZh}</b></p>
+                      <p data-lang="en"><b>Price:</b> Placeholder</p>
+                      <p data-lang="zh"><b>价格:</b> 占位内容</p>
+                      <p data-lang="en"><b>Dimensions (L x W x H):</b> Placeholder</p>
+                      <p data-lang="zh"><b>尺寸 (长 x 宽 x 高):</b> 占位内容</p>
+                      <p data-lang="en"><b>Material Type (Oak, Walnut, Pine):</b> Placeholder</p>
+                      <p data-lang="zh"><b>材质类型 (橡木 / 胡桃木 / 松木):</b> 占位内容</p>
+                      <p data-lang="en"><b>Status:</b> Available / Sold (Placeholder)</p>
+                      <p data-lang="zh"><b>状态:</b> 可售 / 已售 (占位内容)</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="59%" align="center" valign="middle">
+                    </td>
+                    <td align="right" valign="bottom"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" align="center"><hr width="70%" align="center" /></td>
+                  </tr>
+                </>
+              ))}
+
+              <tr>
+                <td colspan="3" align="center" class="pagenums">
+                  <p class="pagenums"><b>«</b> Previous | 1 | 2 | Next <b>»</b></p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </main>
+    <Footer />
+  </body>
+</html>
