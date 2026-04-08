@@ -1,0 +1,55 @@
+backend:
+  # Update these values before production use.
+  name: github
+  repo: yufei-ilariahuang/astro-brotherHome
+  branch: main
+
+# Keep this enabled for local testing with `npx decap-server`.
+local_backend: true
+
+media_folder: brother-home-site/public/uploads
+public_folder: /uploads
+
+site_url: /admin
+
+collections:
+  - name: products
+    label: Products
+    folder: brother-home-site/src/content/products
+    create: true
+    format: frontmatter
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - { label: Product Name, name: title, widget: string }
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: Cabinets / Kitchen Cabinets, value: kitchen-cabinets }
+          - { label: Flooring / Hardwood & Laminate Flooring, value: hardwood-laminate-flooring }
+          - { label: Quartz Countertops, value: quartz-countertops }
+          - { label: Bathroom Vanities, value: bathroom-vanities }
+          - { label: Shower Doors, value: shower-doors }
+          - { label: Shower Doors & Enclosures, value: shower-doors-enclosures }
+          - { label: Sinks and Pulls, value: sinks-and-pulls }
+          - { label: Sinks and Basins, value: sinks-basins }
+          - { label: Cabinet Hardware and Pulls, value: cabinet-hardware-pulls }
+          - { label: Custom Walk-in Closets, value: custom-walk-in-closets }
+          - { label: Storage Cabinets, value: storage-cabinets }
+          - { label: Pantry Storage, value: pantry-storage }
+      - { label: SKU, name: sku, widget: string, required: false }
+      - { label: Product Image, name: image, widget: image, required: false }
+      - { label: English Description, name: descriptionEn, widget: text, required: false }
+      - { label: Chinese Description, name: descriptionZh, widget: text, required: false }
+      - { label: Price, name: price, widget: string, required: false }
+      - { label: Dimensions, name: dimensions, widget: string, required: false }
+      - { label: Material, name: material, widget: string, required: false }
+      - label: Status
+        name: status
+        widget: select
+        options:
+          - { label: Available, value: available }
+          - { label: Sold, value: sold }
+      - { label: Hidden Draft, name: draft, widget: boolean, required: false, default: false }
+      - { label: Sort Order (smaller shows first), name: order, widget: number, required: false, value_type: int }

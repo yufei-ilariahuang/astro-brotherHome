@@ -1,62 +1,47 @@
-# Astro Starter Kit: Blog
+# Brother Home Site
+
+Astro website for Brother Home.
+
+## Online Editing (Decap CMS)
+
+This project now includes Decap CMS at `/admin` so a client can add/edit products and upload images in the browser.
+
+### 1) Local test
+
+From this folder:
 
 ```sh
-npm create astro@latest -- --template blog
+npm install
+npm run dev
+npx decap-server
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Then open:
 
-Features:
+- `http://localhost:4321/admin`
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+### 2) Production setup
 
-## 🚀 Project Structure
+Edit `public/admin/config.yml`:
 
-Inside of your Astro project, you'll see the following folders and files:
+- Set `backend.repo` to your real GitHub repo (`owner/repo`)
+- Confirm `backend.branch` (for example `main`)
 
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+You also need GitHub authentication for Decap:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- Option A: Use Netlify Identity + Git Gateway
+- Option B: Use GitHub OAuth app/proxy for Decap
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+After backend auth is configured, client can log in at `/admin`, add/edit products, upload images, and publish.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+### 3) Where uploads go
 
-Any static assets, like images, can be placed in the `public/` directory.
+- Uploaded files are saved to `public/uploads`
+- Product content is stored in `src/content/products`
 
-## 🧞 Commands
+## Commands
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+- `npm install` install dependencies
+- `npm run dev` start dev server
+- `npm run build` production build
+- `npm run preview` preview production build
