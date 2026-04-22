@@ -63,12 +63,19 @@ const { title, description, image = FallbackImage } = Astro.props;
 <script is:inline>
 	(() => {
 		const hash = window.location.hash || '';
-		const hasIdentityToken = /(invite_token|recovery_token|confirmation_token)=/.test(hash);
-		const onAdminPath = window.location.pathname === '/admin' || window.location.pathname === '/admin/';
+		const search = window.location.search || '';
+		const tokenPattern = /(invite_token|recovery_token|confirmation_token)=/;
+		const hasIdentityToken = tokenPattern.test(hash) || tokenPattern.test(search);
+		const onAdminPath = window.location.pathname.startsWith('/admin');
+
+		if (window.netlifyIdentity) {
+			window.netlifyIdentity.init();
+		}
 
 		// Netlify Identity links may land on site root; forward token to /admin.
 		if (hasIdentityToken && !onAdminPath) {
-			window.location.replace(`/admin/${hash}`);
+			const tokenSuffix = tokenPattern.test(hash) ? hash : search;
+			window.location.replace(`/admin/${tokenSuffix}`);
 		}
 	})();
 </script>
