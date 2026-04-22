@@ -1,12 +1,10 @@
 backend:
-  # Update these values before production use.
-  name: github
-  repo: yufei-ilariahuang/astro-brotherHome
+  # Netlify production CMS auth via Netlify Identity + Git Gateway.
+  name: git-gateway
   branch: main
 
 # Keep this enabled for local testing with `npx decap-server`.
-local_backend:
-  url: http://localhost:8081/api/v1
+local_backend: true
 
 media_folder: public/uploads
 public_folder: /uploads
