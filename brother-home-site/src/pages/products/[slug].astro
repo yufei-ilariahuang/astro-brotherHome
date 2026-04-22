@@ -153,13 +153,25 @@ const products = (await getCollection('products'))
 								<>
 									<tr>
 										<td width="26%" rowspan="3" align="center" valign="middle">
-											<img
-												src={item.data.image || '/placeholder.svg'}
-												border="0"
-												alt={item.data.title}
-												width="120"
-												height="90"
-											/>
+											{item.data.image ? (
+												<a href={item.data.image} target="_blank" rel="noopener noreferrer" title="Click to view full image">
+													<img
+														src={item.data.image}
+														border="0"
+														alt={item.data.title}
+														width="120"
+														height="90"
+													/>
+												</a>
+											) : (
+												<img
+													src="/placeholder.svg"
+													border="0"
+													alt={item.data.title}
+													width="120"
+													height="90"
+												/>
+											)}
 										</td>
 										<td width="59%">
 											<p><b>{item.data.sku || item.data.title}</b></p>

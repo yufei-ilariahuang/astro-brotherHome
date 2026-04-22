@@ -5,9 +5,10 @@ backend:
   branch: main
 
 # Keep this enabled for local testing with `npx decap-server`.
-local_backend: true
+local_backend:
+  url: http://localhost:8081/api/v1
 
-media_folder: brother-home-site/public/uploads
+media_folder: public/uploads
 public_folder: /uploads
 
 site_url: /admin
@@ -15,7 +16,7 @@ site_url: /admin
 collections:
   - name: products
     label: Products
-    folder: brother-home-site/src/content/products
+    folder: src/content/products
     create: true
     format: frontmatter
     extension: md
