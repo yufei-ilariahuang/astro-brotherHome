@@ -56,3 +56,16 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<script is:inline>
+	(() => {
+		const hash = window.location.hash || '';
+		const hasIdentityToken = /(invite_token|recovery_token|confirmation_token)=/.test(hash);
+		const onAdminPath = window.location.pathname === '/admin' || window.location.pathname === '/admin/';
+
+		// Netlify Identity links may land on site root; forward token to /admin.
+		if (hasIdentityToken && !onAdminPath) {
+			window.location.replace(`/admin/${hash}`);
+		}
+	})();
+</script>
