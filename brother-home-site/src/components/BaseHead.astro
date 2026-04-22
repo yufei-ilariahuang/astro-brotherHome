@@ -57,6 +57,9 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
+<!-- Netlify Identity widget for invite/recovery token handling -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
 <script is:inline>
 	(() => {
 		const hash = window.location.hash || '';
