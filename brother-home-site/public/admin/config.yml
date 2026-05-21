@@ -26,18 +26,13 @@ collections:
         name: category
         widget: select
         options:
-          - { label: Cabinets / Kitchen Cabinets, value: kitchen-cabinets }
-          - { label: Flooring / Hardwood & Laminate Flooring, value: hardwood-laminate-flooring }
-          - { label: Quartz Countertops, value: quartz-countertops }
-          - { label: Bathroom Vanities, value: bathroom-vanities }
-          - { label: Shower Doors, value: shower-doors }
-          - { label: Shower Doors & Enclosures, value: shower-doors-enclosures }
-          - { label: Sinks and Pulls, value: sinks-and-pulls }
-          - { label: Sinks and Basins, value: sinks-basins }
-          - { label: Cabinet Hardware and Pulls, value: cabinet-hardware-pulls }
-          - { label: Custom Walk-in Closets, value: custom-walk-in-closets }
-          - { label: Storage Cabinets, value: storage-cabinets }
-          - { label: Pantry Storage, value: pantry-storage }
+          - { label: "Cabinets / Kitchen Cabinets", value: kitchen-cabinets }
+          - { label: "Flooring / Hardwood & Laminate Flooring", value: hardwood-laminate-flooring }
+          - { label: "Quartz Stone / Quartz Countertops", value: quartz-countertops }
+          - { label: "Water Basin / Sinks & Basins", value: sinks-basins }
+          - { label: "Handles / Cabinet Hardware & Pulls", value: cabinet-hardware-pulls }
+          - { label: "Bathroom Cabinet / Bathroom Vanities", value: bathroom-vanities }
+          - { label: "Bathroom Door / Shower Doors & Enclosures", value: shower-doors-enclosures }
       - { label: SKU, name: sku, widget: string, required: false }
       - { label: Product Image, name: image, widget: image, required: false }
       - { label: English Description, name: descriptionEn, widget: text, required: false }
