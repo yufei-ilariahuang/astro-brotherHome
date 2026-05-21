@@ -11,12 +11,21 @@
 		<link rel="icon" href="/favicon.svg" />
 	</head>
 	<body>
+		<style>
+			#nh-signup { position: fixed; right: 16px; top: 16px; z-index: 9999; background:#111; color:#fff; border:0; padding:8px 12px; border-radius:6px; cursor:pointer }
+		</style>
+		<button id="nh-signup">Sign up</button>
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 		<script is:inline>
 			if (window.netlifyIdentity) {
 				window.netlifyIdentity.init();
 				window.netlifyIdentity.on('login', () => {
 					window.location.href = '/admin/';
+				});
+				// Open the signup modal when user clicks the button
+				document.getElementById('nh-signup').addEventListener('click', (e) => {
+					e.preventDefault();
+					window.netlifyIdentity.open('signup');
 				});
 			}
 		</script>

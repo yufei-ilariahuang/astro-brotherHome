@@ -1,0 +1,107 @@
+---
+// Small client-side auth buttons that use the Netlify Identity widget when available.
+---
+
+<div class="auth-buttons">
+  <div id="netlify-user-status">Checking auth...</div>
+  <div id="netlify-auth-controls">
+    <button id="netlify-login-btn">Sign in / Register</button>
+    <button id="netlify-logout-btn" style="display:none">Sign out</button>
+    <a id="netlify-admin-link" href="/admin" style="margin-left:8px">Admin</a>
+  </div>
+</div>
+
+<!-- Load the Netlify Identity widget for a ready-made UI (defer so page loads first) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+
+<script type="module">
+  function el(id) { return document.getElementById(id); }
+
+  function updateUI(user) {
+    const status = el('netlify-user-status');
+    const loginBtn = el('netlify-login-btn');
+    const logoutBtn = el('netlify-logout-btn');
+    if (user) {
+      status.textContent = `Signed in: ${user.email || user?.user_metadata?.full_name || user?.id}`;
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = '';
+    } else {
+      status.textContent = 'Not signed in';
+      loginBtn.style.display = '';
+      logoutBtn.style.display = 'none';
+    }
+  }
+
+  // Wait until the widget script is available, then wire handlers.
+  function whenWidget(fn) {
+    if (window.netlifyIdentity) return fn(window.netlifyIdentity);
+    const i = setInterval(() => {
+      if (window.netlifyIdentity) {
+        clearInterval(i);
+        fn(window.netlifyIdentity);
+      }
+    }, 150);
+    // give up after a short while
+    setTimeout(() => clearInterval(i), 5000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const loginBtn = el('netlify-login-btn');
+    const logoutBtn = el('netlify-logout-btn');
+
+    whenWidget((netlifyIdentity) => {
+      try {
+        // Show current user
+        updateUI(netlifyIdentity.currentUser());
+        netlifyIdentity.on('login', (user) => {
+          updateUI(user);
+          netlifyIdentity.close();
+        });
+        netlifyIdentity.on('logout', () => updateUI(null));
+      } catch (e) {
+        console.warn('Netlify Identity widget not available', e);
+      }
+
+      loginBtn.addEventListener('click', () => {
+        if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
+          window.netlifyIdentity.open();
+        } else {
+          // Fallback: direct user to /admin where CMS will prompt for login via Git Gateway
+          window.location.href = '/admin';
+        }
+      });
+
+      logoutBtn.addEventListener('click', () => {
+        if (window.netlifyIdentity && typeof window.netlifyIdentity.logout === 'function') {
+          window.netlifyIdentity.logout();
+        } else {
+          updateUI(null);
+        }
+      });
+    });
+
+    // As a fallback, try a quick check in case widget is already loaded
+    if (window.netlifyIdentity) {
+      updateUI(window.netlifyIdentity.currentUser());
+    } else {
+      updateUI(null);
+    }
+  });
+</script>
+
+<style>
+  .auth-buttons {
+    margin-top: 8px;
+    text-align: center;
+  }
+  #netlify-auth-controls button, #netlify-auth-controls a {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #7d6a52;
+    background: #f2ede9;
+    color: #20180f;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>

@@ -45,3 +45,31 @@ After backend auth is configured, client can log in at `/admin`, add/edit produc
 - `npm run dev` start dev server
 - `npm run build` production build
 - `npm run preview` preview production build
+
+## Netlify Identity (Login / Registration)
+
+This project includes a small client UI (`src/components/AuthButtons.astro`) that uses the Netlify Identity widget to provide sign-in / register controls and a link to the admin CMS.
+
+To enable login/registration in production on Netlify:
+
+- Go to your site dashboard on Netlify -> Identity -> "Enable Identity".
+- In Identity settings enable "Git Gateway" (if you want Decap/Netlify CMS to commit via Git Gateway).
+- Optionally enable "Open registration" if you want users to sign up without an invite.
+
+Local development:
+
+```bash
+# from brother-home-site/
+npm install
+npm run dev
+# start Decap CMS local backend (if you want to test /admin locally)
+npx decap-server
+# for identity endpoints locally use `netlify dev` (Netlify CLI)
+# `netlify dev` will proxy Identity endpoints and Git Gateway
+```
+
+Notes:
+- The widget script is loaded from `https://identity.netlify.com/v1/netlify-identity-widget.js` by `AuthButtons.astro`.
+- You must enable Identity and Git Gateway in the Netlify dashboard — this cannot be done from code alone.
+- After enabling Identity, visiting `/admin` allows logging in and editing via the CMS.
+

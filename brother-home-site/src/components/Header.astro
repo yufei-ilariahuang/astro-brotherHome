@@ -1,3 +1,7 @@
+---
+import AuthButtons from './AuthButtons.astro';
+---
+
 <div class="top-header">
 	<div class="top-language-switch" role="group" aria-label="Language switch">
 		<button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">English</button>
@@ -19,6 +23,8 @@
 				<span data-lang="zh">地板与橱柜</span>
 			</p>
 		</div>
+
+		<AuthButtons />
 
 		<div class="menu-block">
 			<a href="/"><span data-lang="en">Home</span><span data-lang="zh">首页</span></a>
