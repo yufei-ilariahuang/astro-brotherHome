@@ -7,7 +7,7 @@
   <div id="netlify-auth-controls">
     <button id="netlify-login-btn">Sign in / Register</button>
     <button id="netlify-logout-btn" style="display:none">Sign out</button>
-    <a id="netlify-admin-link" href="/admin" style="margin-left:8px">Admin</a>
+    <button id="netlify-upload-btn" style="display:none; margin-left:8px">Upload Product</button>
   </div>
 </div>
 
@@ -76,6 +76,25 @@
           window.netlifyIdentity.logout();
         } else {
           updateUI(null);
+        }
+      });
+
+      const uploadBtn = el('netlify-upload-btn');
+      uploadBtn.addEventListener('click', () => {
+        const openCreate = () => {
+          // CMS deep link for creating a new product entry
+          window.location.href = '/admin/#/collections/products/new';
+        };
+
+        const current = window.netlifyIdentity && window.netlifyIdentity.currentUser && window.netlifyIdentity.currentUser();
+        if (current) {
+          openCreate();
+        } else if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
+          window.netlifyIdentity.on('login', () => openCreate());
+          window.netlifyIdentity.open();
+        } else {
+          // fallback to /admin which will prompt login
+          window.location.href = '/admin/#/collections/products/new';
         }
       });
     });

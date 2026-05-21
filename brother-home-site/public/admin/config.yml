@@ -1,6 +1,9 @@
 backend:
   # Netlify production CMS auth via Netlify Identity + Git Gateway.
   name: git-gateway
+  # Set your Git repo here for production, e.g. "owner/repo".
+  # Netlify/Decap will use this when running on Netlify with Git Gateway enabled.
+  # repo: owner/repo
   branch: main
 
 # Keep this enabled for local testing with `npx decap-server`.
