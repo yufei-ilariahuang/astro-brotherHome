@@ -21,14 +21,17 @@
     const status = el('netlify-user-status');
     const loginBtn = el('netlify-login-btn');
     const logoutBtn = el('netlify-logout-btn');
+    const uploadBtn = el('netlify-upload-btn');
     if (user) {
       status.textContent = `Signed in: ${user.email || user?.user_metadata?.full_name || user?.id}`;
       loginBtn.style.display = 'none';
       logoutBtn.style.display = '';
+      if (uploadBtn) uploadBtn.style.display = '';
     } else {
       status.textContent = 'Not signed in';
       loginBtn.style.display = '';
       logoutBtn.style.display = 'none';
+      if (uploadBtn) uploadBtn.style.display = 'none';
     }
   }
 
@@ -80,23 +83,13 @@
       });
 
       const uploadBtn = el('netlify-upload-btn');
-      uploadBtn.addEventListener('click', () => {
-        const openCreate = () => {
-          // CMS deep link for creating a new product entry
+      // Always redirect to the CMS new-product editor. If user is not signed-in
+      // the CMS will prompt for login — no extra client-side verification needed.
+      if (uploadBtn) {
+        uploadBtn.addEventListener('click', () => {
           window.location.href = '/admin/#/collections/products/new';
-        };
-
-        const current = window.netlifyIdentity && window.netlifyIdentity.currentUser && window.netlifyIdentity.currentUser();
-        if (current) {
-          openCreate();
-        } else if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
-          window.netlifyIdentity.on('login', () => openCreate());
-          window.netlifyIdentity.open();
-        } else {
-          // fallback to /admin which will prompt login
-          window.location.href = '/admin/#/collections/products/new';
-        }
-      });
+        });
+      }
     });
 
     // As a fallback, try a quick check in case widget is already loaded
