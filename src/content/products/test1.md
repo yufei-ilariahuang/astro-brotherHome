@@ -1,5 +1,5 @@
 title: test1
-category: bathroom-vanities
-image: /uploads/1779425552809-flooring.jpeg
+category: kitchen-cabinets
+image: /uploads/1779425587149-closet.jpeg
 status: available
 draft: false
