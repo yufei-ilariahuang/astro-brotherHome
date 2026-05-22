@@ -1,6 +1,6 @@
 ---
 title: test3
-category: hardwood-laminate-flooring
+category: kitchen-cabinets
 image: https://effervescent-haupia-6c1414.netlify.app/uploads/flooring.jpeg
 status: available
 draft: false
