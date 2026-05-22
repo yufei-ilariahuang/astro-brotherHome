@@ -18,7 +18,10 @@ async function getGitHubRef(token) {
     `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/refs/heads/${GITHUB_BRANCH}`,
     { headers: { Authorization: `token ${token}` } }
   );
-  if (!res.ok) throw new Error(`Failed to get ref: ${res.status}`);
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`Failed to get ref: ${res.status} ${body}`);
+  }
   return res.json();
 }
 
@@ -112,16 +115,23 @@ async function updateGitHubRef(token, commitSha) {
 }
 
 export default async (req, context) => {
+  console.log('Upload function called, method:', req.method);
+  
   if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
+    return new Response(JSON.stringify({ error: 'Method not allowed' }), { 
+      status: 405,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   try {
     const token = process.env.GITHUB_TOKEN;
+    console.log('GITHUB_TOKEN env var set:', !!token);
+    
     if (!token) {
       return new Response(
         JSON.stringify({ error: 'GITHUB_TOKEN not configured in Netlify env vars' }),
-        { status: 500 }
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -130,10 +140,12 @@ export default async (req, context) => {
     const category = formData.get('category');
     const imageFile = formData.get('image');
 
+    console.log('Form data received:', { title, category, hasImage: !!imageFile });
+
     if (!title || !category || !imageFile) {
       return new Response(
         JSON.stringify({ error: 'Missing title, category, or image' }),
-        { status: 400 }
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -146,13 +158,18 @@ export default async (req, context) => {
     const frontmatter = `title: ${title}\ncategory: ${category}\nimage: /uploads/${filename}\nstatus: available\ndraft: false\n`;
 
     // 1. Get current ref
+    console.log('Getting current ref...');
     const ref = await getGitHubRef(token);
     const parentSha = ref.object.sha;
+    console.log('Parent SHA:', parentSha);
 
     // 2. Create blob for image
+    console.log('Creating image blob...');
     const imageBlob = await createGitHubBlob(token, imageBuffer);
+    console.log('Image blob SHA:', imageBlob.sha);
 
     // 3. Create tree with both image and product markdown
+    console.log('Creating tree...');
     const tree = await createGitHubTree(token, parentSha, [
       {
         path: imagePath,
@@ -167,17 +184,22 @@ export default async (req, context) => {
         content: frontmatter,
       },
     ]);
+    console.log('Tree SHA:', tree.sha);
 
     // 4. Create commit
+    console.log('Creating commit...');
     const commit = await createGitHubCommit(
       token,
       tree.sha,
       parentSha,
       `Add product: ${title} + image ${filename}`
     );
+    console.log('Commit SHA:', commit.sha);
 
     // 5. Update ref to point to new commit
+    console.log('Updating ref...');
     await updateGitHubRef(token, commit.sha);
+    console.log('Ref updated successfully');
 
     return new Response(
       JSON.stringify({
@@ -191,7 +213,7 @@ export default async (req, context) => {
   } catch (err) {
     console.error('Upload error:', err);
     return new Response(
-      JSON.stringify({ error: String(err) }),
+      JSON.stringify({ error: String(err.message || err) }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
