@@ -6,6 +6,9 @@ backend:
   # repo: owner/repo
   branch: main
 
+site_url: https://effervescent-haupia-6c1414.netlify.app
+display_url: https://effervescent-haupia-6c1414.netlify.app
+
 # Keep this enabled for local testing with `npx decap-server`.
 local_backend: true
 
