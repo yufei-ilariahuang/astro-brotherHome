@@ -10,7 +10,7 @@ site_url: https://effervescent-haupia-6c1414.netlify.app
 display_url: https://effervescent-haupia-6c1414.netlify.app
 
 media_folder: public/uploads
-public_folder: /uploads
+public_folder: https://effervescent-haupia-6c1414.netlify.app/uploads
 
 collections:
   - name: products
