@@ -1,0 +1,146 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const title = "Product Upload";
+const description = "Upload a product image and create a product page.";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			.upload-form {
+				max-width: 600px;
+				margin: 2rem auto;
+				padding: 2rem;
+				border: 1px solid #ccc;
+				border-radius: 8px;
+				background: #f9f9f9;
+			}
+			.form-group {
+				margin-bottom: 1.5rem;
+			}
+			label {
+				display: block;
+				font-weight: bold;
+				margin-bottom: 0.5rem;
+			}
+			input[type="text"],
+			input[type="file"],
+			select {
+				width: 100%;
+				padding: 0.75rem;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				font-size: 1rem;
+				box-sizing: border-box;
+			}
+			button {
+				background-color: #333;
+				color: white;
+				padding: 0.75rem 1.5rem;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 1rem;
+			}
+			button:hover {
+				background-color: #555;
+			}
+			.status {
+				margin-top: 1rem;
+				padding: 1rem;
+				border-radius: 4px;
+			}
+			.status.success {
+				background-color: #d4edda;
+				color: #155724;
+				border: 1px solid #c3e6cb;
+			}
+			.status.error {
+				background-color: #f8d7da;
+				color: #721c24;
+				border: 1px solid #f5c6cb;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<h1>{title}</h1>
+			<div class="upload-form">
+				<form id="uploadForm">
+					<div class="form-group">
+						<label for="title">Product Title:</label>
+						<input type="text" id="title" name="title" required />
+					</div>
+
+					<div class="form-group">
+						<label for="category">Category:</label>
+						<select id="category" name="category" required>
+							<option value="">-- Select Category --</option>
+							<option value="hardwood-flooring">Hardwood Flooring</option>
+							<option value="laminate-flooring">Laminate Flooring</option>
+							<option value="hardwood-laminate-flooring">Hardwood & Laminate Flooring</option>
+							<option value="bathroom-vanities">Bathroom Vanities</option>
+							<option value="kitchen-cabinets">Kitchen Cabinets</option>
+							<option value="quartz-countertops">Quartz Countertops</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="image">Image (JPG, PNG, etc):</label>
+						<input type="file" id="image" name="image" accept="image/*" required />
+					</div>
+
+					<button type="submit">Upload & Create Product</button>
+				</form>
+
+				<div id="status"></div>
+			</div>
+
+			<p style="margin-top: 2rem; text-align: center; font-size: 0.9rem; color: #666;">
+				After upload, the product will be created and deployed within a few minutes.
+			</p>
+		</main>
+		<Footer />
+	</body>
+
+	<script>
+		const form = document.getElementById('uploadForm');
+		const statusEl = document.getElementById('status');
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			statusEl.textContent = 'Uploading...';
+			statusEl.className = 'status';
+
+			try {
+				const formData = new FormData(form);
+				const res = await fetch('/.netlify/functions/upload', {
+					method: 'POST',
+					body: formData,
+				});
+
+				const data = await res.json();
+
+				if (res.ok && data.success) {
+					statusEl.textContent = data.message;
+					statusEl.className = 'status success';
+					form.reset();
+				} else {
+					statusEl.textContent = `Error: ${data.error || 'Unknown error'}`;
+					statusEl.className = 'status error';
+				}
+			} catch (err) {
+				statusEl.textContent = `Error: ${err.message}`;
+				statusEl.className = 'status error';
+			}
+		});
+	</script>
+</html>
