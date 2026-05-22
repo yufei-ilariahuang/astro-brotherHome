@@ -152,10 +152,9 @@ export default async (req, context) => {
     const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
     const timestamp = Date.now();
     const filename = `${timestamp}-${imageFile.name.replace(/[^a-zA-Z0-9._-]/g, '-')}`;
-    const imagePath = `public/uploads/${filename}`;
+    const imagePath = `brother-home-site/public/uploads/${filename}`;
     const slug = slugify(title);
-    const productPath = `src/content/products/${slug}.md`;
-    const frontmatter = `title: ${title}\ncategory: ${category}\nimage: /uploads/${filename}\nstatus: available\ndraft: false\n`;
+    const productPath = `brother-home-site/src/content/products/${slug}.md`;    const frontmatter = `title: ${title}\ncategory: ${category}\nimage: /uploads/${filename}\nstatus: available\ndraft: false\n`;
 
     // 1. Get current ref
     console.log('Getting current ref...');
