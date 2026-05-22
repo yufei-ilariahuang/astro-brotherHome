@@ -142,9 +142,29 @@ export default async (req, context) => {
 
     console.log('Form data received:', { title, category, hasImage: !!imageFile });
 
-    if (!title || !category || !imageFile) {
+    // Validate required fields
+    if (typeof title !== 'string' || !title.trim()) {
       return new Response(
-        JSON.stringify({ error: 'Missing title, category, or image' }),
+        JSON.stringify({ error: 'Invalid title' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!imageFile) {
+      return new Response(
+        JSON.stringify({ error: 'Missing image' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Allowed categories must match the site's collection schema
+    const allowedCategories = [
+      'kitchen-cabinets','hardwood-laminate-flooring','quartz-countertops','bathroom-vanities','shower-doors','shower-doors-enclosures','sinks-and-pulls','sinks-basins','cabinet-hardware-pulls','custom-walk-in-closets','storage-cabinets','pantry-storage'
+    ];
+
+    if (typeof category !== 'string' || !allowedCategories.includes(category)) {
+      return new Response(
+        JSON.stringify({ error: `Invalid category. Allowed: ${allowedCategories.join(', ')}` }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
