@@ -2,10 +2,9 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 
 const title = "Product Upload";
-const description = "Upload a product image and create a product page.";
+const description = "Upload, manage, and delete product entries.";
 ---
 
 <!doctype html>
@@ -14,12 +13,23 @@ const description = "Upload a product image and create a product page.";
 		<BaseHead title={title} description={description} />
 		<style>
 			.upload-form {
-				max-width: 600px;
+				max-width: 760px;
 				margin: 2rem auto;
 				padding: 2rem;
 				border: 1px solid #ccc;
 				border-radius: 8px;
 				background: #f9f9f9;
+			}
+			.panel {
+				padding: 1rem;
+				border: 1px solid #ddd;
+				border-radius: 6px;
+				margin-bottom: 1.25rem;
+				background: #fff;
+			}
+			.panel h2 {
+				margin-top: 0;
+				font-size: 1.2rem;
 			}
 			.form-group {
 				margin-bottom: 1.5rem;
@@ -30,7 +40,9 @@ const description = "Upload a product image and create a product page.";
 				margin-bottom: 0.5rem;
 			}
 			input[type="text"],
+			input[type="number"],
 			input[type="file"],
+			textarea,
 			select {
 				width: 100%;
 				padding: 0.75rem;
@@ -38,6 +50,10 @@ const description = "Upload a product image and create a product page.";
 				border-radius: 4px;
 				font-size: 1rem;
 				box-sizing: border-box;
+			}
+			textarea {
+				min-height: 96px;
+				resize: vertical;
 			}
 			button {
 				background-color: #333;
@@ -50,6 +66,12 @@ const description = "Upload a product image and create a product page.";
 			}
 			button:hover {
 				background-color: #555;
+			}
+			button.danger {
+				background-color: #7d1d1d;
+			}
+			button.danger:hover {
+				background-color: #a32727;
 			}
 			.status {
 				margin-top: 1rem;
@@ -74,32 +96,83 @@ const description = "Upload a product image and create a product page.";
 		<main>
 			<h1>{title}</h1>
 			<div class="upload-form">
-				<form id="uploadForm">
-					<div class="form-group">
-						<label for="title">Product Title:</label>
-						<input type="text" id="title" name="title" required />
-					</div>
+				<div class="panel">
+					<h2>Create Product</h2>
+					<form id="uploadForm">
+						<input type="hidden" name="action" value="upload" />
+						<div class="form-group">
+							<label for="title">Product Title:</label>
+							<input type="text" id="title" name="title" required />
+						</div>
 
-					<div class="form-group">
-						<label for="category">Category:</label>
-						<select id="category" name="category" required>
-							<option value="">-- Select Category --</option>
-							<option value="hardwood-flooring">Hardwood Flooring</option>
-							<option value="laminate-flooring">Laminate Flooring</option>
-							<option value="hardwood-laminate-flooring">Hardwood & Laminate Flooring</option>
-							<option value="bathroom-vanities">Bathroom Vanities</option>
-							<option value="kitchen-cabinets">Kitchen Cabinets</option>
-							<option value="quartz-countertops">Quartz Countertops</option>
-						</select>
-					</div>
+						<div class="form-group">
+							<label for="category">Category:</label>
+							<select id="category" name="category" required>
+								<option value="">-- Select Category --</option>
+								<option value="kitchen-cabinets">Kitchen Cabinets</option>
+								<option value="hardwood-laminate-flooring">Hardwood & Laminate Flooring</option>
+								<option value="quartz-countertops">Quartz Countertops</option>
+								<option value="bathroom-vanities">Bathroom Vanities</option>
+								<option value="shower-doors">Shower Doors</option>
+								<option value="shower-doors-enclosures">Shower Doors & Enclosures</option>
+								<option value="sinks-and-pulls">Sinks & Pulls</option>
+								<option value="sinks-basins">Sinks & Basins</option>
+								<option value="cabinet-hardware-pulls">Cabinet Hardware & Pulls</option>
+								<option value="custom-walk-in-closets">Custom Walk-In Closets</option>
+								<option value="storage-cabinets">Storage Cabinets</option>
+								<option value="pantry-storage">Pantry Storage</option>
+							</select>
+						</div>
 
-					<div class="form-group">
-						<label for="image">Image (JPG, PNG, etc):</label>
-						<input type="file" id="image" name="image" accept="image/*" required />
-					</div>
+						<div class="form-group">
+							<label for="sku">SKU (optional):</label>
+							<input type="text" id="sku" name="sku" />
+						</div>
 
-					<button type="submit">Upload & Create Product</button>
-				</form>
+						<div class="form-group">
+							<label for="description">Description (optional):</label>
+							<textarea id="description" name="description" placeholder="Short product description"></textarea>
+						</div>
+
+						<div class="form-group">
+							<label for="price">Price (optional):</label>
+							<input type="text" id="price" name="price" placeholder="$1999" />
+						</div>
+
+						<div class="form-group">
+							<label for="dimensions">Dimension (optional):</label>
+							<input type="text" id="dimensions" name="dimensions" placeholder="72in x 36in x 24in" />
+						</div>
+
+						<div class="form-group">
+							<label for="image">Image (JPG, PNG, etc):</label>
+							<input type="file" id="image" name="image" accept="image/*" required />
+						</div>
+
+						<button type="submit">Upload & Create Product</button>
+					</form>
+				</div>
+
+				<div class="panel">
+					<h2>Delete Product</h2>
+					<form id="deleteForm">
+						<input type="hidden" name="action" value="delete" />
+						<div class="form-group">
+							<label for="slug">Posted Products:</label>
+							<select id="slug" name="slug" required>
+								<option value="">Loading products...</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="deleteImage">Also delete image file:</label>
+							<select id="deleteImage" name="deleteImage">
+								<option value="false">No (keep image in uploads)</option>
+								<option value="true">Yes (remove image file)</option>
+							</select>
+						</div>
+						<button type="submit" class="danger">Delete Selected Product</button>
+					</form>
+				</div>
 
 				<div id="status"></div>
 			</div>
@@ -113,34 +186,116 @@ const description = "Upload a product image and create a product page.";
 
 	<script>
 		const form = document.getElementById('uploadForm');
+		const deleteForm = document.getElementById('deleteForm');
+		const slugSelect = document.getElementById('slug');
 		const statusEl = document.getElementById('status');
+
+		const endpoint = '/.netlify/functions/upload';
+
+		async function parseJsonSafe(res) {
+			const text = await res.text();
+			try {
+				return JSON.parse(text);
+			} catch {
+				return { error: text || 'Unexpected response from server' };
+			}
+		}
+
+		function setStatus(message, ok) {
+			statusEl.textContent = message;
+			statusEl.className = `status ${ok ? 'success' : 'error'}`;
+		}
+
+		async function loadProducts() {
+			slugSelect.innerHTML = '<option value="">Loading products...</option>';
+			try {
+				const res = await fetch(`${endpoint}?action=list`);
+				const data = await parseJsonSafe(res);
+				if (!res.ok || !data.success) {
+					setStatus(`Error loading products: ${data.error || 'Unknown error'}`, false);
+					slugSelect.innerHTML = '<option value="">Failed to load products</option>';
+					return;
+				}
+
+				const products = data.products || [];
+				if (products.length === 0) {
+					slugSelect.innerHTML = '<option value="">No posted products found</option>';
+					return;
+				}
+
+				slugSelect.innerHTML = '<option value="">-- Select Product --</option>';
+				products.forEach((item) => {
+					const option = document.createElement('option');
+					option.value = item.slug;
+					option.textContent = item.slug;
+					slugSelect.appendChild(option);
+				});
+			} catch (err) {
+				setStatus(`Error loading products: ${err.message}`, false);
+				slugSelect.innerHTML = '<option value="">Failed to load products</option>';
+			}
+		}
 
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
-			statusEl.textContent = 'Uploading...';
 			statusEl.className = 'status';
+			statusEl.textContent = 'Uploading...';
 
 			try {
 				const formData = new FormData(form);
-				const res = await fetch('/.netlify/functions/upload', {
+				const res = await fetch(endpoint, {
 					method: 'POST',
 					body: formData,
 				});
-
-				const data = await res.json();
+				const data = await parseJsonSafe(res);
 
 				if (res.ok && data.success) {
-					statusEl.textContent = data.message;
-					statusEl.className = 'status success';
+					setStatus(data.message, true);
 					form.reset();
+					await loadProducts();
 				} else {
-					statusEl.textContent = `Error: ${data.error || 'Unknown error'}`;
-					statusEl.className = 'status error';
+					setStatus(`Error: ${data.error || 'Unknown error'}`, false);
 				}
 			} catch (err) {
-				statusEl.textContent = `Error: ${err.message}`;
-				statusEl.className = 'status error';
+				setStatus(`Error: ${err.message}`, false);
 			}
 		});
+
+		deleteForm.addEventListener('submit', async (e) => {
+			e.preventDefault();
+
+			if (!slugSelect.value) {
+				setStatus('Please select a product to delete.', false);
+				return;
+			}
+
+			if (!window.confirm(`Delete product "${slugSelect.value}"? This will commit a deletion to the repository.`)) {
+				return;
+			}
+
+			statusEl.className = 'status';
+			statusEl.textContent = 'Deleting...';
+
+			try {
+				const formData = new FormData(deleteForm);
+				const res = await fetch(endpoint, {
+					method: 'POST',
+					body: formData,
+				});
+				const data = await parseJsonSafe(res);
+
+				if (res.ok && data.success) {
+					setStatus(data.message, true);
+					deleteForm.reset();
+					await loadProducts();
+				} else {
+					setStatus(`Error: ${data.error || 'Unknown error'}`, false);
+				}
+			} catch (err) {
+				setStatus(`Error: ${err.message}`, false);
+			}
+		});
+
+		loadProducts();
 	</script>
 </html>

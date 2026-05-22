@@ -23,6 +23,7 @@ const products = defineCollection({
 		title: z.string(),
 		category: z.enum(categorySlugs),
 		sku: z.string().optional(),
+		description: z.string().optional(),
 		descriptionEn: z.string().optional(),
 		descriptionZh: z.string().optional(),
 		price: z.string().optional(),
