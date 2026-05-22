@@ -82,6 +82,12 @@ const productPages = {
 
 type ProductSlug = keyof typeof productPages;
 
+function normalizeAssetPath(path?: string) {
+	if (!path) return '';
+	if (/^(https?:|data:|\/)/.test(path)) return path;
+	return `/${path.replace(/^\.\//, '')}`;
+}
+
 export function getStaticPaths() {
 	const slugs = [
 		'kitchen-cabinets',
@@ -154,9 +160,9 @@ const products = (await getCollection('products'))
 									<tr>
 										<td width="26%" rowspan="3" align="center" valign="middle">
 											{item.data.image ? (
-												<a href={item.data.image} target="_blank" rel="noopener noreferrer" title="Click to view full image">
+												<a href={normalizeAssetPath(item.data.image)} target="_blank" rel="noopener noreferrer" title="Click to view full image">
 													<img
-														src={item.data.image}
+														src={normalizeAssetPath(item.data.image)}
 														border="0"
 														alt={item.data.title}
 														width="120"
