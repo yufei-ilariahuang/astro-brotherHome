@@ -3,8 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-const title = "Product Upload";
-const description = "Upload, manage, and delete product entries.";
+const title = "Product Upload / 产品上传";
+const description = "Upload, manage, and delete product entries / 上传、管理和删除产品";
 ---
 
 <!doctype html>
@@ -97,80 +97,80 @@ const description = "Upload, manage, and delete product entries.";
 			<h1>{title}</h1>
 			<div class="upload-form">
 				<div class="panel">
-					<h2>Create Product</h2>
+					<h2>Create Product / 创建产品</h2>
 					<form id="uploadForm">
 						<input type="hidden" name="action" value="upload" />
 						<div class="form-group">
-							<label for="title">Product Title:</label>
+							<label for="title">Product Title / 产品名称:</label>
 							<input type="text" id="title" name="title" required />
 						</div>
 
 						<div class="form-group">
-							<label for="category">Category:</label>
+							<label for="category">Category / 分类:</label>
 							<select id="category" name="category" required>
-								<option value="">-- Select Category --</option>
-								<option value="kitchen-cabinets">Kitchen Cabinets</option>
-								<option value="hardwood-laminate-flooring">Hardwood & Laminate Flooring</option>
-								<option value="quartz-countertops">Quartz Countertops</option>
-								<option value="bathroom-vanities">Bathroom Vanities</option>
-								<option value="shower-doors">Shower Doors</option>
-								<option value="shower-doors-enclosures">Shower Doors & Enclosures</option>
-								<option value="sinks-and-pulls">Sinks & Pulls</option>
-								<option value="sinks-basins">Sinks & Basins</option>
-								<option value="cabinet-hardware-pulls">Cabinet Hardware & Pulls</option>
-								<option value="custom-walk-in-closets">Custom Walk-In Closets</option>
-								<option value="storage-cabinets">Storage Cabinets</option>
-								<option value="pantry-storage">Pantry Storage</option>
+								<option value="">-- Select Category / 请选择分类 --</option>
+								<option value="kitchen-cabinets">Kitchen Cabinets / 厨柜</option>
+								<option value="hardwood-laminate-flooring">Hardwood & Laminate Flooring / 实木与复合地板</option>
+								<option value="quartz-countertops">Quartz Countertops / 石英石台面</option>
+								<option value="bathroom-vanities">Bathroom Vanities / 浴室柜</option>
+								<option value="shower-doors">Shower Doors / 淋浴门</option>
+								<option value="shower-doors-enclosures">Shower Doors & Enclosures / 淋浴门与隔断</option>
+								<option value="sinks-and-pulls">Sinks & Pulls / 水盆与拉手</option>
+								<option value="sinks-basins">Sinks & Basins / 水槽与洗手盆</option>
+								<option value="cabinet-hardware-pulls">Cabinet Hardware & Pulls / 五金拉手</option>
+								<option value="custom-walk-in-closets">Custom Walk-In Closets / 定制衣帽间</option>
+								<option value="storage-cabinets">Storage Cabinets / 储物柜</option>
+								<option value="pantry-storage">Pantry Storage / 储物间收纳</option>
 							</select>
 						</div>
 
 						<div class="form-group">
-							<label for="sku">SKU (optional):</label>
+							<label for="sku">SKU (optional) / SKU（可选）:</label>
 							<input type="text" id="sku" name="sku" />
 						</div>
 
 						<div class="form-group">
-							<label for="description">Description (optional):</label>
-							<textarea id="description" name="description" placeholder="Short product description"></textarea>
+							<label for="description">Description (optional) / 描述（可选）:</label>
+							<textarea id="description" name="description" placeholder="Short product description / 简短产品描述"></textarea>
 						</div>
 
 						<div class="form-group">
-							<label for="price">Price (optional):</label>
-							<input type="text" id="price" name="price" placeholder="$1999" />
+							<label for="price">Price (optional) / 价格（可选）:</label>
+							<input type="text" id="price" name="price" placeholder="$1999 / ¥1999" />
 						</div>
 
 						<div class="form-group">
-							<label for="dimensions">Dimension (optional):</label>
-							<input type="text" id="dimensions" name="dimensions" placeholder="72in x 36in x 24in" />
+							<label for="dimensions">Dimension (optional) / 尺寸（可选）:</label>
+							<input type="text" id="dimensions" name="dimensions" placeholder="72in x 36in x 24in / 72英寸 × 36英寸 × 24英寸" />
 						</div>
 
 						<div class="form-group">
-							<label for="image">Image (JPG, PNG, etc):</label>
+							<label for="image">Image (JPG, PNG, etc) / 图片（JPG、PNG 等）:</label>
 							<input type="file" id="image" name="image" accept="image/*" required />
 						</div>
 
-						<button type="submit">Upload & Create Product</button>
+						<button type="submit">Upload & Create Product / 上传并创建产品</button>
 					</form>
 				</div>
 
 				<div class="panel">
-					<h2>Delete Product</h2>
+					<h2>Delete Product / 删除产品</h2>
 					<form id="deleteForm">
 						<input type="hidden" name="action" value="delete" />
 						<div class="form-group">
-							<label for="slug">Posted Products:</label>
+							<label for="slug">Posted Products / 已发布产品:</label>
 							<select id="slug" name="slug" required>
-								<option value="">Loading products...</option>
+								<option value="">Loading products... / 加载产品中...</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="deleteImage">Also delete image file:</label>
+							<label for="deleteImage">Also delete image file / 同时删除图片文件:</label>
 							<select id="deleteImage" name="deleteImage">
-								<option value="false">No (keep image in uploads)</option>
-								<option value="true">Yes (remove image file)</option>
+								<option value="false">No (keep image in uploads) / 否（保留 uploads 中的图片）</option>
+								<option value="true">Yes (remove image file) / 是（删除图片文件）</option>
 							</select>
 						</div>
-						<button type="submit" class="danger">Delete Selected Product</button>
+						<button type="submit" class="danger">Delete Selected Product / 删除所选产品</button>
 					</form>
 				</div>
 
@@ -178,7 +178,7 @@ const description = "Upload, manage, and delete product entries.";
 			</div>
 
 			<p style="margin-top: 2rem; text-align: center; font-size: 0.9rem; color: #666;">
-				After upload, the product will be created and deployed within a few minutes.
+				After upload, the product will be created and deployed within a few minutes. / 上传后，产品会在几分钟内创建并部署。
 			</p>
 		</main>
 		<Footer />
@@ -239,7 +239,7 @@ const description = "Upload, manage, and delete product entries.";
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
 			statusEl.className = 'status';
-			statusEl.textContent = 'Uploading...';
+				statusEl.textContent = 'Uploading... / 上传中...';
 
 			try {
 				const formData = new FormData(form);
@@ -265,7 +265,7 @@ const description = "Upload, manage, and delete product entries.";
 			e.preventDefault();
 
 			if (!slugSelect.value) {
-				setStatus('Please select a product to delete.', false);
+					setStatus('Please select a product to delete. / 请选择要删除的产品。', false);
 				return;
 			}
 
@@ -274,7 +274,7 @@ const description = "Upload, manage, and delete product entries.";
 			}
 
 			statusEl.className = 'status';
-			statusEl.textContent = 'Deleting...';
+				statusEl.textContent = 'Deleting... / 删除中...';
 
 			try {
 				const formData = new FormData(deleteForm);

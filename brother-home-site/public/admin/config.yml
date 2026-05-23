@@ -6,11 +6,11 @@ backend:
   # repo: owner/repo
   branch: main
 
-site_url: https://effervescent-haupia-6c1414.netlify.app
-display_url: https://effervescent-haupia-6c1414.netlify.app
+site_url: https://dancing-youtiao-be270b.netlify.app
+display_url: https://dancing-youtiao-be270b.netlify.app
 
 media_folder: public/uploads
-public_folder: https://effervescent-haupia-6c1414.netlify.app/uploads
+public_folder: https://dancing-youtiao-be270b.netlify.app/uploads
 
 collections:
   - name: products
